@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workers</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f2f5f9;
+}
+
+header{
+background:#1e3a8a;
+color:#fff;
+padding:18px;
+font-size:22px;
+text-align:center;
+font-weight:bold;
+}
+
+.container{
+padding:15px;
+max-width:900px;
+margin:auto;
+}
+
+.search{
+width:100%;
+padding:12px;
+font-size:16px;
+border-radius:8px;
+border:1px solid #ccc;
+margin-bottom:15px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 4px 10px rgba(0,0,0,.1);
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.photo{
+width:60px;
+height:60px;
+border-radius:50%;
+background:#2563eb;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+font-weight:bold;
+}
+
+.name{
+font-size:18px;
+font-weight:bold;
+}
+
+.details{
+font-size:14px;
+color:#666;
+}
+
+.actions button{
+margin-left:5px;
+padding:8px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+color:white;
+}
+
+.edit{
+background:#f59e0b;
+}
+
+.delete{
+background:#ef4444;
+}
+
+.add{
+position:fixed;
+bottom:20px;
+right:20px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:#22c55e;
+color:white;
+font-size:32px;
+border:none;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+👷 Worker Management
+</header>
+
+<div class="container">
+
+<input
+type="text"
+class="search"
+placeholder="Search Worker..."
+onkeyup="searchWorker(this.value)"
+>
+
+<div id="workerList"></div>
+
+</div>
+
+<button class="add" onclick="addWorker()">+</button>
+
+<script>
+
+let workers=[
+
+{
+id:"W001",
+name:"Ravi",
+phone:"9876543210",
+skill:"Mason",
+wage:900
+},
+
+{
+id:"W002",
+name:"Kumar",
+phone:"9876500000",
+skill:"Helper",
+wage:700
+},
+
+{
+id:"W003",
+name:"Mani",
+phone:"9123456789",
+skill:"Electrician",
+wage:1100
+}
+
+];
+
+function load(data){
+
+let html="";
+
+data.forEach((w,index)=>{
+
+html+=`
+
+<div class="card">
+
+<div class="left">
+
+<div class="photo">
+${w.name.charAt(0)}
+</div>
+
+<div>
+
+<div class="name">${w.name}</div>
+
+<div class="details">
+
+ID : ${w.id}<br>
+
+📞 ${w.phone}<br>
+
+🛠 ${w.skill}<br>
+
+💰 ₹${w.wage}/day
+
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button
+class="edit"
+onclick="editWorker(${index})">
+Edit
+</button>
+
+<button
+class="delete"
+onclick="deleteWorker(${index})">
+Delete
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("workerList").innerHTML=html;
+
+}
+
+load(workers);
+
+function searchWorker(text){
+
+let result=workers.filter(w=>
+
+w.name.toLowerCase().includes(text.toLowerCase())
+
+);
+
+load(result);
+
+}
+
+function addWorker(){
+
+let name=prompt("Worker Name");
+
+if(!name) return;
+
+let phone=prompt("Phone");
+
+let skill=prompt("Skill");
+
+let wage=prompt("Daily Wage");
+
+workers.push({
+
+id:"W00"+(workers.length+1),
+
+name,
+
+phone,
+
+skill,
+
+wage
+
+});
+
+load(workers);
+
+}
+
+function editWorker(i){
+
+let name=prompt("Edit Name",workers[i].name);
+
+if(name){
+
+workers[i].name=name;
+
+load(workers);
+
+}
+
+}
+
+function deleteWorker(i){
+
+if(confirm("Delete Worker?")){
+
+workers.splice(i,1);
+
+load(workers);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

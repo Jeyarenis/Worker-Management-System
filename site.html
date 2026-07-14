@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Site</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+.header{
+background:#1e3a8a;
+color:white;
+padding:18px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+}
+
+.container{
+padding:20px;
+max-width:500px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:20px;
+margin-bottom:15px;
+border-radius:12px;
+box-shadow:0 5px 12px rgba(0,0,0,.1);
+cursor:pointer;
+border:2px solid transparent;
+}
+
+.card:hover{
+border-color:#2563eb;
+}
+
+.card.selected{
+border-color:#22c55e;
+background:#ecfdf5;
+}
+
+h3{
+margin-bottom:5px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:20px 0;
+font-size:16px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+Select Site
+</div>
+
+<div class="container">
+
+<div class="card" onclick="selectSite(this,'Site A')">
+<h3>🏗️ Site A</h3>
+<p>Kanyakumari</p>
+</div>
+
+<div class="card" onclick="selectSite(this,'Site B')">
+<h3>🏗️ Site B</h3>
+<p>Nagercoil</p>
+</div>
+
+<div class="card" onclick="selectSite(this,'Site C')">
+<h3>🏗️ Site C</h3>
+<p>Madurai</p>
+</div>
+
+<input type="date" id="date">
+
+<button onclick="continuePage()">Continue</button>
+
+</div>
+
+<script>
+
+let selectedSite="";
+
+document.getElementById("date").valueAsDate=new Date();
+
+function selectSite(card,site){
+
+document.querySelectorAll(".card").forEach(c=>{
+c.classList.remove("selected");
+});
+
+card.classList.add("selected");
+
+selectedSite=site;
+
+}
+
+function continuePage(){
+
+if(selectedSite==""){
+alert("Please select a site");
+return;
+}
+
+localStorage.setItem("site",selectedSite);
+localStorage.setItem("date",document.getElementById("date").value);
+
+window.location="attendance.html";
+
+}
+
+</script>
+
+</body>
+</html>

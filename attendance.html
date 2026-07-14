@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+header{
+background:#1e3a8a;
+color:white;
+padding:15px;
+text-align:center;
+font-size:22px;
+}
+
+.info{
+background:white;
+margin:15px;
+padding:15px;
+border-radius:10px;
+box-shadow:0 5px 10px rgba(0,0,0,.1);
+}
+
+.buttons{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+button{
+flex:1;
+padding:12px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:15px;
+}
+
+.copy{
+background:#2563eb;
+color:white;
+}
+
+.add{
+background:#22c55e;
+color:white;
+}
+
+.save{
+background:#f59e0b;
+color:white;
+margin:15px;
+width:calc(100% - 30px);
+}
+
+.worker{
+background:white;
+margin:12px 15px;
+padding:15px;
+border-radius:10px;
+box-shadow:0 3px 8px rgba(0,0,0,.1);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.worker h3{
+font-size:18px;
+}
+
+select{
+padding:8px;
+border-radius:8px;
+}
+
+.remove{
+background:red;
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+margin-left:10px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>Attendance</header>
+
+<div class="info">
+
+<h3 id="site"></h3>
+
+<p id="date"></p>
+
+<div class="buttons">
+
+<button class="copy" onclick="copyYesterday()">Copy Yesterday</button>
+
+<button class="add" onclick="addWorker()">Add Worker</button>
+
+</div>
+
+</div>
+
+<div id="list"></div>
+
+<button class="save" onclick="saveAttendance()">Save Attendance</button>
+
+<script>
+
+document.getElementById("site").innerHTML="🏗️ "+localStorage.getItem("site");
+
+document.getElementById("date").innerHTML="📅 "+localStorage.getItem("date");
+
+let workers=[
+"Ravi",
+"Kumar",
+"Mani"
+];
+
+function render(){
+
+let html="";
+
+workers.forEach((w,index)=>{
+
+html+=`
+<div class="worker">
+
+<div>
+
+<h3>${w}</h3>
+
+</div>
+
+<div>
+
+<select>
+
+<option>Present</option>
+
+<option>Half Day</option>
+
+<option>Absent</option>
+
+</select>
+
+<button class="remove" onclick="removeWorker(${index})">X</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("list").innerHTML=html;
+
+}
+
+render();
+
+function addWorker(){
+
+let name=prompt("Enter Worker Name");
+
+if(name){
+
+workers.push(name);
+
+render();
+
+}
+
+}
+
+function removeWorker(i){
+
+workers.splice(i,1);
+
+render();
+
+}
+
+function copyYesterday(){
+
+alert("Yesterday's workers copied.");
+
+}
+
+function saveAttendance(){
+
+alert("Attendance Saved Successfully");
+
+}
+
+</script>
+
+</body>
+</html>

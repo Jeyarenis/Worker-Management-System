@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worker Management System</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f2f5f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+width:350px;
+background:#fff;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+color:#1e3a8a;
+}
+
+input,select{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.footer{
+margin-top:15px;
+text-align:center;
+font-size:14px;
+color:#777;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>Worker Management</h2>
+
+<select id="role">
+<option value="admin">Admin</option>
+<option value="supervisor">Supervisor</option>
+</select>
+
+<input type="text" id="username" placeholder="Username">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<div class="footer">
+Construction Worker Management System
+</div>
+
+</div>
+
+<script>
+
+function login(){
+
+let role=document.getElementById("role").value;
+let user=document.getElementById("username").value;
+let pass=document.getElementById("password").value;
+
+if(user==="" || pass===""){
+alert("Enter username and password");
+return;
+}
+
+if(role==="admin"){
+window.location="dashboard.html";
+}
+else{
+window.location="site.html";
+}
+
+}
+
+</script>
+
+</body>
+</html>
